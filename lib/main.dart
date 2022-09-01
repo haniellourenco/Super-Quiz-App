@@ -98,24 +98,7 @@ class _SuperQuizState extends State<SuperQuiz> {
                       backgroundColor: Colors.red,
                     ),
                     onPressed: () {
-                      setState(() {
-                        if (quizBrain.getQuestionAnswer() == false) {
-                          score.add(
-                            Icon(
-                              Icons.check,
-                              color: Colors.green,
-                            ),
-                          );
-                        } else {
-                          score.add(
-                            Icon(
-                              Icons.close,
-                              color: Colors.red,
-                            ),
-                          );
-                        }
-                        quizBrain.nextQuestion();
-                      });
+                      checkAnswer();
                     },
                     child: const Text(
                       "Não",
@@ -135,5 +118,26 @@ class _SuperQuizState extends State<SuperQuiz> {
         )),
       ),
     );
+  }
+
+  void checkAnswer() {
+    return setState(() {
+      if (quizBrain.getQuestionAnswer() == false) {
+        score.add(
+          Icon(
+            Icons.check,
+            color: Colors.green,
+          ),
+        );
+      } else {
+        score.add(
+          Icon(
+            Icons.close,
+            color: Colors.red,
+          ),
+        );
+      }
+      quizBrain.nextQuestion();
+    });
   }
 }
