@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_quizz/question.dart';
+import 'package:projeto_quizz/quiz_brain.dart';
 
 void main() {
   runApp(const SuperQuiz());
@@ -14,36 +15,8 @@ class SuperQuiz extends StatefulWidget {
 
 class _SuperQuizState extends State<SuperQuiz> {
   List<Icon> score = [];
-  List<Question> questionBank = [
-    Question('Alguns gatos são alérgicos a humanos', true),
-    Question(
-        'É possível fazer com que uma vaca suba escadas, mas não descê-las.',
-        false),
-    Question(
-        'Aproximadamente um quarto dos ossos humanos estão nos pés.', true),
-    Question('O sangue de uma lesma é verde.', true),
-    Question('O nome de solteira da mãe de Buzz Aldrin era \"Moon\".', true),
-    Question('É ilegal urinar no oceano, em Portugal.', true),
-    Question(
-        'Nenhum pedaço quadrado de papel pode ser dobrado mais do que 7 vezes.',
-        false),
-    Question(
-        'Em Londres, se você morrer no Parlamento, você tem direito a um funeral de estado, porque o prédio é considerado um local sagrado.',
-        true),
-    Question(
-        'O som mais forte produzido por qualquer animal é de 188dB. Esse animal é o elefante africano.',
-        false),
-    Question(
-        'A área total dos dois pulmões de um humano é de aproximadamente 70 metros quadrados.',
-        true),
-    Question('Google foi chamado, originalmente de \"Backrub\".', true),
-    Question(
-        'O chocolate afeta o coração e o sistema nervoso de um cão; algumas gramas são suficientes para matar um cão pequeno.',
-        true),
-    Question(
-        'Na Virginia do Oeste, EUA, se você atropelar um animal com um carro, por acidente, você pode levá-lo para casa e comê-lo.',
-        true),
-  ];
+
+  QuizBrain quizBrain = QuizBrain();
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +41,7 @@ class _SuperQuizState extends State<SuperQuiz> {
                   padding: const EdgeInsets.all(10.0),
                   child: Center(
                     child: Text(
-                      questionBank[0].text,
+                      quizBrain.getQuestionText(),
                       textAlign: TextAlign.center,
                       style: const TextStyle(
                         fontSize: 25.0,
@@ -88,12 +61,22 @@ class _SuperQuizState extends State<SuperQuiz> {
                     ),
                     onPressed: () {
                       setState(() {
-                        score.add(
-                          Icon(
-                            Icons.check,
-                            color: Colors.green,
-                          ),
-                        );
+                        if (quizBrain.getQuestionAnswer() == true) {
+                          score.add(
+                            Icon(
+                              Icons.check,
+                              color: Colors.green,
+                            ),
+                          );
+                        } else {
+                          score.add(
+                            Icon(
+                              Icons.close,
+                              color: Colors.red,
+                            ),
+                          );
+                        }
+                        quizBrain.nextQuestion();
                       });
                     },
                     child: const Text(
@@ -116,12 +99,22 @@ class _SuperQuizState extends State<SuperQuiz> {
                     ),
                     onPressed: () {
                       setState(() {
-                        score.add(
-                          Icon(
-                            Icons.close,
-                            color: Colors.red,
-                          ),
-                        );
+                        if (quizBrain.getQuestionAnswer() == false) {
+                          score.add(
+                            Icon(
+                              Icons.check,
+                              color: Colors.green,
+                            ),
+                          );
+                        } else {
+                          score.add(
+                            Icon(
+                              Icons.close,
+                              color: Colors.red,
+                            ),
+                          );
+                        }
+                        quizBrain.nextQuestion();
                       });
                     },
                     child: const Text(
