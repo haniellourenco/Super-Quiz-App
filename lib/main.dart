@@ -12,6 +12,8 @@ class SuperQuiz extends StatefulWidget {
 }
 
 class _SuperQuizState extends State<SuperQuiz> {
+  List<Icon> score = [];
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -53,7 +55,16 @@ class _SuperQuizState extends State<SuperQuiz> {
                       primary: Colors.green,
                       backgroundColor: Colors.green,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      setState(() {
+                        score.add(
+                          Icon(
+                            Icons.check,
+                            color: Colors.green,
+                          ),
+                        );
+                      });
+                    },
                     child: const Text(
                       "Sim",
                       style: TextStyle(
@@ -72,7 +83,16 @@ class _SuperQuizState extends State<SuperQuiz> {
                       primary: Colors.red,
                       backgroundColor: Colors.red,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      setState(() {
+                        score.add(
+                          Icon(
+                            Icons.close,
+                            color: Colors.red,
+                          ),
+                        );
+                      });
+                    },
                     child: const Text(
                       "Não",
                       style: TextStyle(
@@ -82,6 +102,9 @@ class _SuperQuizState extends State<SuperQuiz> {
                     ),
                   ),
                 ),
+              ),
+              Row(
+                children: score,
               )
             ],
           ),
